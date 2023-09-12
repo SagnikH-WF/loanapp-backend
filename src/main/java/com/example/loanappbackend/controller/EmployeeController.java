@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.loanappbackend.model.Employee;
+import com.example.loanappbackend.model.UserLogin;
 import com.example.loanappbackend.service.EmployeeService;
 
 @RestController
@@ -30,5 +31,11 @@ public class EmployeeController {
     @DeleteMapping("/employee/{id}")
     public String deleteEmployee(@PathVariable("id") String id) {
         return employeeService.deleteEmployeeById(id);
+    }
+    
+    @PostMapping("/employee/login")
+    public String checkLoginCredentials(@RequestBody UserLogin user) {
+    	
+    	return employeeService.checkLogin(user);
     }
 }
