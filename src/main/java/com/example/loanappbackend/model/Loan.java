@@ -22,8 +22,8 @@ public class Loan {
 	@Column(length=15, nullable=false)
 	private String loanType;
 
-//	@OneToMany(mappedBy="loanId", cascade=CascadeType.ALL)
-//	private Set<EmployeeLoanCardDetails> employeeLoanCardDetails;
+	@OneToMany(mappedBy="loanId", cascade=CascadeType.ALL)
+	private Set<EmployeeLoanCard> employeeLoanCard;
 	
 	public Loan() {
 		super();

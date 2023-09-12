@@ -44,8 +44,8 @@ public class Employee {
 	@Temporal(TemporalType.DATE)
 	private java.util.Date dateOfJoining;
 	
-//	@OneToMany(mappedBy="employeeId", cascade=CascadeType.ALL)
-//	private Set<EmployeeLoanCardDetails> employeeLoanCardDetails;
+	@OneToMany(mappedBy="employeeId", cascade=CascadeType.ALL)
+	private Set<EmployeeLoanCard> employeeLoanCard;
 //	
 //	@OneToMany(mappedBy="issueId", cascade=CascadeType.ALL)
 //	private Set<EmployeeItemIssueDetails> employeeItemIssueDetails;
