@@ -16,5 +16,7 @@ public interface LoanService {
 //	Loan updateLoanById(String id, Loan loan);
 	
 	String deleteLoanById(String id);
+	
+	List<String> getDistinctLoanTypes();
 		
 }

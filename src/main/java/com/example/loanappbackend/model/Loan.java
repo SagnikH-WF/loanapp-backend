@@ -19,7 +19,7 @@ public class Loan {
 	@Column(name="duration", nullable=false)
 	private int durationInYears;
 	
-	@Column(length=15, nullable=false)
+	@Column(unique=true, length=15, nullable=false)
 	private String loanType;
 
 	@OneToMany(mappedBy="loanId", cascade=CascadeType.ALL)

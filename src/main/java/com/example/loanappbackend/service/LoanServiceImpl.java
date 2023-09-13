@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.example.loanappbackend.model.Loan;
@@ -44,5 +45,10 @@ public class LoanServiceImpl implements LoanService {
 			return "Loan deleted successfully";
 		}
 		return "No such loan in the database";
+	}
+	
+	@Override	
+	public List<String> getDistinctLoanTypes() {
+		return loanRepository.getDistinctLoanTypes();
 	}
 }
