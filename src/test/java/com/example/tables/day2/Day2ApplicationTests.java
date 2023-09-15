@@ -1,10 +1,10 @@
-package com.example.loanappbackend;
+package com.example.tables.day2;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LoanappBackendApplicationTests {
+class Day2ApplicationTests {
 
 	@Test
 	void contextLoads() {
