@@ -1,8 +1,13 @@
 package com.example.loanappbackend.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,6 +32,9 @@ public class Item {
 	
 	@Column(length = 10, nullable = false)
 	private int itemValuation;
+	
+	@OneToMany(mappedBy = "item", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	private List<EmployeeIssueDetails> employeeissue;
 
 	public Item() {
 		super();

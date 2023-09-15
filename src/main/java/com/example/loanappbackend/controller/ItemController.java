@@ -1,10 +1,8 @@
 package com.example.loanappbackend.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,4 +38,12 @@ public class ItemController {
 	public List<Item> getItemsForSpecficCategoryAndMake(@RequestParam String category, @RequestParam String make) {
 		return itemService.getItemsForSpecficCategoryAndMake(category, make);
 	}
+	 @GetMapping("/itemDetails")
+	 public List<Item> getAllItems() {
+	        // Call the service to get the list of items
+	        List<Item> items = itemService.getAllItems();
+	        // You can perform additional operations on the list if needed       
+	        return items;
+	    }
+		
 }

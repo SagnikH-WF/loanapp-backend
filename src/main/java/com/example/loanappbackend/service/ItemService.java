@@ -11,4 +11,6 @@ public interface ItemService {
 	List<String> getCategorySpecificItemMakes(String category);
 	
 	List<Item> getItemsForSpecficCategoryAndMake(String category, String make);
+	
+	List<Item> getAllItems();
 }

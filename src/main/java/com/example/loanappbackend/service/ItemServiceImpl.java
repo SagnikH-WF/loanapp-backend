@@ -14,7 +14,7 @@ public class ItemServiceImpl implements ItemService{
 	@Autowired
 	private ItemRepository itemRepository;
 	
-	@Override
+//	@Override
 	public Item saveItem(Item item) {
 		return itemRepository.save(item);
 	}
@@ -28,4 +28,10 @@ public class ItemServiceImpl implements ItemService{
 	public List<Item> getItemsForSpecficCategoryAndMake(String category, String make) {
 		return itemRepository.getItemsForSpecficCategoryAndMake(category, make);
 	}
+	
+	public List<Item>getAllItems() {
+        // Call the findAll() method on the itemRepository instance
+        return itemRepository.findAll();
+    }
+
 }

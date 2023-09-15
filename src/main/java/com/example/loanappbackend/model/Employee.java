@@ -2,7 +2,9 @@ package com.example.loanappbackend.model;
 
 import jakarta.persistence.Entity;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -14,47 +16,51 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name="employee")
-public class Employee {	
-	
-	@Id
-	@Column(length=6)
-	private String employeeId;	
+@Table(name = "employee")
+public class Employee {
 
-	@Column(nullable=false, length=20)
+	@Id
+	@Column(length = 6)
+	private String employeeId;
+
+	@Column(nullable = false, length = 20)
 	private String name;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String password;
-	
-	@Column(nullable=false, length=25)
+
+	@Column(nullable = false, length = 25)
 	private String designation;
-	
-	@Column(nullable=false, length=25)
+
+	@Column(nullable = false, length = 25)
 	private String department;
-	
-	@Column(nullable=false, length=1)
+
+	@Column(nullable = false, length = 1)
 	private String gender;
-	
-	@Column(nullable=false)
-	@Temporal(TemporalType.DATE)
+
+	@Column(nullable = false)
+//	@Temporal(TemporalType.DATE)
 	private java.util.Date dateOfBirth;
-	
-	@Column(nullable=false)
-	@Temporal(TemporalType.DATE)
+
+	@Column(nullable = false)
+//	@Temporal(TemporalType.DATE)
+//	private LocalDate dateOfJoining;
 	private java.util.Date dateOfJoining;
-	
-	@OneToMany(mappedBy="employeeId", cascade=CascadeType.ALL)
+
+	@OneToMany(mappedBy = "employeeId", cascade = CascadeType.ALL)
 	private Set<EmployeeLoanCard> employeeLoanCard;
+
+	@OneToMany(mappedBy = "employee")
+	private List<EmployeeIssueDetails> employeeissue;
 //	
 //	@OneToMany(mappedBy="issueId", cascade=CascadeType.ALL)
 //	private Set<EmployeeItemIssueDetails> employeeItemIssueDetails;
-	
+
 	public Employee() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public Employee(String employeeId, String name, String designation, String department, String gender,
 			Date dateOfBirth, Date dateOfJoining) {
 		super();
@@ -66,7 +72,7 @@ public class Employee {
 		this.dateOfBirth = dateOfBirth;
 		this.dateOfJoining = dateOfJoining;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Employee [dateOfBirth=" + dateOfBirth + ", dateOfJoining=" + dateOfJoining + ", department="
