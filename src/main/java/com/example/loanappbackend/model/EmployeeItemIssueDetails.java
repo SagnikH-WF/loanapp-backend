@@ -1,9 +1,12 @@
 package com.example.loanappbackend.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -17,75 +20,75 @@ public class EmployeeItemIssueDetails {
 
 	@Id
 	@Column(length = 6)
-	private String issueId;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int issueId;
 	
 	@Column(nullable=false)
 	@Temporal(TemporalType.DATE)
-	private java.util.Date issueDate;
+	private LocalDate issueDate;
 	
 	@Column(nullable=false)
 	@Temporal(TemporalType.DATE)
-	private java.util.Date returnDate;
+	private LocalDate returnDate;
 	
 	@ManyToOne
 	@JoinColumn(nullable=false, referencedColumnName="employeeId")
-	private Employee employeeId;
+	private Employee employee;
 	
 	@ManyToOne
 	@JoinColumn(nullable=false, referencedColumnName="itemId")
-	private Item itemId;
+	private Item item;
 	
 	public EmployeeItemIssueDetails() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public EmployeeItemIssueDetails(String issueId, Date issueDate, Date returnDate, Employee employeeId, Item itemId) {
+	public EmployeeItemIssueDetails(LocalDate issueDate, LocalDate returnDate, Employee employee, Item item) {
 		super();
-		this.issueId = issueId;
 		this.issueDate = issueDate;
 		this.returnDate = returnDate;
-		this.employeeId = employeeId;
-		this.itemId = itemId;
+		this.employee = employee;
+		this.item = item;
 	}
 	
-	public String getIssueId() {
+	public int getIssueId() {
 		return issueId;
 	}
 	
-	public void setIssueId(String issueId) {
+	public void setIssueId(int issueId) {
 		this.issueId = issueId;
 	}
 	
-	public java.util.Date getIssueDate() {
+	public LocalDate getIssueDate() {
 		return issueDate;
 	}
 	
-	public void setIssueDate(java.util.Date issueDate) {
+	public void setIssueDate(LocalDate issueDate) {
 		this.issueDate = issueDate;
 	}
 	
-	public java.util.Date getReturnDate() {
+	public LocalDate getReturnDate() {
 		return returnDate;
 	}
 	
-	public void setReturnDate(java.util.Date returnDate) {
+	public void setReturnDate(LocalDate returnDate) {
 		this.returnDate = returnDate;
 	}
 	
-	public Employee getEmployeeId() {
-		return employeeId;
+	public Employee getEmployee() {
+		return employee;
 	}
 	
-	public void setEmployeeId(Employee employeeId) {
-		this.employeeId = employeeId;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 	
-	public Item getItemId() {
-		return itemId;
+	public Item getItem() {
+		return item;
 	}
 	
-	public void setItemId(Item itemId) {
-		this.itemId = itemId;
+	public void setItem(Item item) {
+		this.item = item;
 	}
 }

@@ -16,4 +16,7 @@ public interface ItemRepository extends JpaRepository<Item, String>{
 	
 	@Query("SELECT i FROM Item i WHERE i.itemCategory=?1 AND i.itemMake=?2")
 	public List<Item> getItemsForSpecficCategoryAndMake(String category, String make);
+	
+	@Query("Select i.itemId from Item i where i.itemCategory=?1 and i.itemDescription=?2 and i.itemValuation=?3 and i.itemMake=?4")
+	public String findItemDetails(String category, String description, int value, String make);
 }

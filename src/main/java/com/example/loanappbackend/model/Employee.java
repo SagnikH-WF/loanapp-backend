@@ -2,7 +2,7 @@ package com.example.loanappbackend.model;
 
 import jakarta.persistence.Entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -36,18 +36,16 @@ public class Employee {
 	@Column(nullable=false, length=1)
 	private Character gender;
 	
-	@Column(nullable=false)
-	@Temporal(TemporalType.DATE)
-	private java.util.Date dateOfBirth;
+	@Column(nullable=false)	
+	private LocalDate LocalDateOfBirth;
 	
-	@Column(nullable=false)
-	@Temporal(TemporalType.DATE)
-	private java.util.Date dateOfJoining;
+	@Column(nullable=false)	
+	private LocalDate LocalDateOfJoining;
 	
-	@OneToMany(mappedBy="employeeId", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="employee", cascade=CascadeType.ALL)
 	private Set<EmployeeLoanCard> employeeLoanCard;
 	
-	@OneToMany(mappedBy="issueId", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="employee", cascade=CascadeType.ALL)
 	private Set<EmployeeItemIssueDetails> employeeItemIssueDetails;
 	
 	public Employee() {
@@ -56,20 +54,20 @@ public class Employee {
 	}
 	
 	public Employee(String employeeId, String name, String designation, String department, Character gender,
-			Date dateOfBirth, Date dateOfJoining) {
+			LocalDate LocalDateOfBirth, LocalDate LocalDateOfJoining) {
 		super();
 		this.employeeId = employeeId;
 		this.name = name;
 		this.designation = designation;
 		this.department = department;
 		this.gender = gender;
-		this.dateOfBirth = dateOfBirth;
-		this.dateOfJoining = dateOfJoining;
+		this.LocalDateOfBirth = LocalDateOfBirth;
+		this.LocalDateOfJoining = LocalDateOfJoining;
 	}
 	
 	@Override
 	public String toString() {
-		return "Employee [dateOfBirth=" + dateOfBirth + ", dateOfJoining=" + dateOfJoining + ", department="
+		return "Employee [LocalDateOfBirth=" + LocalDateOfBirth + ", LocalDateOfJoining=" + LocalDateOfJoining + ", department="
 				+ department + ", designation=" + designation + ", employeeId=" + employeeId + ", gender=" + gender
 				+ ", name=" + name + "]";
 	}
@@ -122,19 +120,19 @@ public class Employee {
 		this.gender = gender;
 	}
 
-	public java.util.Date getDateOfBirth() {
-		return dateOfBirth;
+	public LocalDate getLocalDateOfBirth() {
+		return LocalDateOfBirth;
 	}
 
-	public void setDateOfBirth(java.util.Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+	public void setLocalDateOfBirth(LocalDate LocalDateOfBirth) {
+		this.LocalDateOfBirth = LocalDateOfBirth;
 	}
 
-	public java.util.Date getDateOfJoining() {
-		return dateOfJoining;
+	public LocalDate getLocalDateOfJoining() {
+		return LocalDateOfJoining;
 	}
 
-	public void setDateOfJoining(java.util.Date dateOfJoining) {
-		this.dateOfJoining = dateOfJoining;
+	public void setLocalDateOfJoining(LocalDate LocalDateOfJoining) {
+		this.LocalDateOfJoining = LocalDateOfJoining;
 	}
 }

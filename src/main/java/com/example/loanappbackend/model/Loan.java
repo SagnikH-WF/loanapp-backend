@@ -22,7 +22,7 @@ public class Loan {
 	@Column(unique=true, length=15, nullable=false)
 	private String loanType;
 
-	@OneToMany(mappedBy="loanId", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="loan", cascade=CascadeType.ALL)
 	private Set<EmployeeLoanCard> employeeLoanCard;
 	
 	public Loan() {

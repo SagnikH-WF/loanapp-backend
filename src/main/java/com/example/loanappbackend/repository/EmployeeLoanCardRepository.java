@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.loanappbackend.model.EmployeeLoanCard;
 
 @Repository
-public interface EmployeeLoanCardRepository extends JpaRepository<EmployeeLoanCard, Long>{
+public interface EmployeeLoanCardRepository extends JpaRepository<EmployeeLoanCard, Integer>{
 
 }

@@ -32,7 +32,7 @@ public class Item {
 	@Column(length = 10, nullable = false)
 	private int itemValuation;
 	
-	@OneToMany(mappedBy="itemId", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="item", cascade=CascadeType.ALL)
 	private Set<EmployeeItemIssueDetails> employeeIssueDetails;
 	
 

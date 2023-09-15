@@ -6,18 +6,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.loanappbackend.model.EmployeeLoanCard;
-import com.example.loanappbackend.service.EmployeeLoanCardService;
+import com.example.loanappbackend.model.EmployeeLoan;
+import com.example.loanappbackend.service.EmployeeLoanService;
 
 @RestController
 @CrossOrigin(origins="http://localhost:3000")
-public class EmployeeLoanCardController {
+public class EmployeeLoanController {
 	
 	@Autowired
-	private EmployeeLoanCardService employeeLoanCardService;
+	EmployeeLoanService employeeLoanService;
 	
-	@PostMapping("/loanCard")
-	public EmployeeLoanCard saveEmployeeLoanCard(@RequestBody EmployeeLoanCard employeeLoanCard) {
-		return employeeLoanCardService.saveEmployeeLoanCard(employeeLoanCard);
+	@PostMapping("/applyLoan")
+	public String applyForLoan(@RequestBody EmployeeLoan employeeLoan) {
+		return employeeLoanService.applyForLoan(employeeLoan);
 	}
 }

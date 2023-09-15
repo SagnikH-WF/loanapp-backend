@@ -1,5 +1,6 @@
 package com.example.loanappbackend.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -19,68 +20,68 @@ public class EmployeeLoanCard {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long employeeCardId;
+	private int employeeCardId;
 	
 	@Column(nullable=false)
-	@Temporal(TemporalType.DATE)
-	private java.time.LocaDate cardIssueDate;
+	
+	private LocalDate cardIssueDate;
 	
 	@ManyToOne
 	@JoinColumn(nullable=false, referencedColumnName="employeeId")
-	private Employee employeeId;
+	private Employee employee;
 	
 	@ManyToOne
 	@JoinColumn(nullable=false, referencedColumnName="loanId")
-	private Loan loanId;
+	private Loan loan;
 
 	public EmployeeLoanCard() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public EmployeeLoanCard(LocalDate cardIssueDate, Employee employeeId, Loan loanId) {
+	public EmployeeLoanCard(LocalDate cardIssueDate, Employee employee, Loan loan) {
 		super();		
 		this.cardIssueDate = cardIssueDate;
-		this.employeeId = employeeId;
-		this.loanId = loanId;
+		this.employee = employee;
+		this.loan = loan;
 	}
 
 	public long getEmployeeCardId() {
 		return employeeCardId;
 	}
 
-	public void setEmployeeCardId(long employeeCardId) {
+	public void setEmployeeCardId(int employeeCardId) {
 		this.employeeCardId = employeeCardId;
 	}
 
-	public java.util.Date getCardIssueDate() {
+	public LocalDate getCardIssueDate() {
 		return cardIssueDate;
 	}
 
-	public void setCardIssueDate(java.util.Date cardIssueDate) {
+	public void setCardIssueDate(LocalDate cardIssueDate) {
 		this.cardIssueDate = cardIssueDate;
 	}
 
-	public Employee getEmployeeId() {
-		return employeeId;
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setEmployeeId(Employee employeeId) {
-		this.employeeId = employeeId;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
-	public Loan getLoanId() {
-		return loanId;
+	public Loan getLoan() {
+		return loan;
 	}
 
-	public void setLoanId(Loan loanId) {
-		this.loanId = loanId;
+	public void setLoan(Loan loan) {
+		this.loan = loan;
 	}
 
 	@Override
 	public String toString() {
 		return "EmployeeLoanCard [employeeCardId=" + employeeCardId + ", cardIssueDate=" + cardIssueDate
-				+ ", employeeId=" + employeeId + ", loanId=" + loanId + "]";
+				+ ", employee=" + employee + ", loan=" + loan + "]";
 	}
 	
 }
