@@ -18,8 +18,7 @@ import jakarta.persistence.TemporalType;
 @Table(name="employee_issue_details")
 public class EmployeeItemIssueDetails {
 
-	@Id
-	@Column(length = 6)
+	@Id	
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int issueId;
 	

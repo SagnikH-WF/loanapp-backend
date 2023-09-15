@@ -36,11 +36,11 @@ public class Employee {
 	@Column(nullable=false, length=1)
 	private Character gender;
 	
-	@Column(nullable=false)	
-	private LocalDate LocalDateOfBirth;
+	@Column
+	private LocalDate dateOfBirth;
 	
-	@Column(nullable=false)	
-	private LocalDate LocalDateOfJoining;
+	@Column
+	private LocalDate dateOfJoining;
 	
 	@OneToMany(mappedBy="employee", cascade=CascadeType.ALL)
 	private Set<EmployeeLoanCard> employeeLoanCard;
@@ -54,20 +54,20 @@ public class Employee {
 	}
 	
 	public Employee(String employeeId, String name, String designation, String department, Character gender,
-			LocalDate LocalDateOfBirth, LocalDate LocalDateOfJoining) {
+			LocalDate dateOfBirth, LocalDate dateOfJoining) {
 		super();
 		this.employeeId = employeeId;
 		this.name = name;
 		this.designation = designation;
 		this.department = department;
 		this.gender = gender;
-		this.LocalDateOfBirth = LocalDateOfBirth;
-		this.LocalDateOfJoining = LocalDateOfJoining;
+		this.dateOfBirth = dateOfBirth;
+		this.dateOfJoining = dateOfJoining;
 	}
 	
 	@Override
 	public String toString() {
-		return "Employee [LocalDateOfBirth=" + LocalDateOfBirth + ", LocalDateOfJoining=" + LocalDateOfJoining + ", department="
+		return "Employee [dateOfBirth=" + dateOfBirth + ", dateOfJoining=" + dateOfJoining + ", department="
 				+ department + ", designation=" + designation + ", employeeId=" + employeeId + ", gender=" + gender
 				+ ", name=" + name + "]";
 	}
@@ -120,19 +120,35 @@ public class Employee {
 		this.gender = gender;
 	}
 
-	public LocalDate getLocalDateOfBirth() {
-		return LocalDateOfBirth;
+	public LocalDate getDateOfBirth() {
+		return dateOfBirth;
 	}
 
-	public void setLocalDateOfBirth(LocalDate LocalDateOfBirth) {
-		this.LocalDateOfBirth = LocalDateOfBirth;
+	public void setDateOfBirth(LocalDate LocalDateOfBirth) {
+		this.dateOfBirth = LocalDateOfBirth;
 	}
 
-	public LocalDate getLocalDateOfJoining() {
-		return LocalDateOfJoining;
+	public LocalDate getDateOfJoining() {
+		return dateOfJoining;
 	}
 
-	public void setLocalDateOfJoining(LocalDate LocalDateOfJoining) {
-		this.LocalDateOfJoining = LocalDateOfJoining;
+	public void setDateOfJoining(LocalDate LocalDateOfJoining) {
+		this.dateOfJoining = LocalDateOfJoining;
+	}
+
+	public Set<EmployeeLoanCard> getEmployeeLoanCard() {
+		return employeeLoanCard;
+	}
+
+	public void setEmployeeLoanCard(Set<EmployeeLoanCard> employeeLoanCard) {
+		this.employeeLoanCard = employeeLoanCard;
+	}
+
+	public Set<EmployeeItemIssueDetails> getEmployeeItemIssueDetails() {
+		return employeeItemIssueDetails;
+	}
+
+	public void setEmployeeItemIssueDetails(Set<EmployeeItemIssueDetails> employeeItemIssueDetails) {
+		this.employeeItemIssueDetails = employeeItemIssueDetails;
 	}
 }
