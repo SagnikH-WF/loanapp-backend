@@ -1,8 +1,12 @@
 package com.example.loanappbackend.model;
 
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,6 +31,10 @@ public class Item {
 	
 	@Column(length = 10, nullable = false)
 	private int itemValuation;
+	
+	@OneToMany(mappedBy="itemId", cascade=CascadeType.ALL)
+	private Set<EmployeeItemIssueDetails> employeeIssueDetails;
+	
 
 	public Item() {
 		super();
@@ -90,5 +98,13 @@ public class Item {
 
 	public void setItemValuation(int itemValuation) {
 		this.itemValuation = itemValuation;
+	}
+
+	public Set<EmployeeItemIssueDetails> getEmployeeIssueDetails() {
+		return employeeIssueDetails;
+	}
+
+	public void setEmployeeIssueDetails(Set<EmployeeItemIssueDetails> employeeIssueDetails) {
+		this.employeeIssueDetails = employeeIssueDetails;
 	}
 }

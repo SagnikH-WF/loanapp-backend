@@ -23,7 +23,7 @@ public class EmployeeLoanCard {
 	
 	@Column(nullable=false)
 	@Temporal(TemporalType.DATE)
-	private java.util.Date cardIssueDate;
+	private java.time.LocaDate cardIssueDate;
 	
 	@ManyToOne
 	@JoinColumn(nullable=false, referencedColumnName="employeeId")
@@ -38,7 +38,7 @@ public class EmployeeLoanCard {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EmployeeLoanCard(Date cardIssueDate, Employee employeeId, Loan loanId) {
+	public EmployeeLoanCard(LocalDate cardIssueDate, Employee employeeId, Loan loanId) {
 		super();		
 		this.cardIssueDate = cardIssueDate;
 		this.employeeId = employeeId;

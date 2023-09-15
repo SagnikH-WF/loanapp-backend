@@ -14,7 +14,7 @@ public class EmployeeLoanCardController {
 	@Autowired
 	private EmployeeLoanCardService employeeLoanCardService;
 	
-	@PostMapping("/applyLoan")
+	@PostMapping("/loanCard")
 	public EmployeeLoanCard saveEmployeeLoanCard(@RequestBody EmployeeLoanCard employeeLoanCard) {
 		return employeeLoanCardService.saveEmployeeLoanCard(employeeLoanCard);
 	}

@@ -4,8 +4,6 @@ import com.example.loanappbackend.model.EmployeeLoanCard;
 
 public interface EmployeeLoanCardService {
 	
-	EmployeeLoanCard saveEmployeeLoanCard(EmployeeLoanCard employeeLoanCard);
-	
-	
+	EmployeeLoanCard saveEmployeeLoanCard(EmployeeLoanCard employeeLoanCard);	
 	
 }

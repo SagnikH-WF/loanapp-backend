@@ -34,7 +34,7 @@ public class Employee {
 	private String department;
 	
 	@Column(nullable=false, length=1)
-	private String gender;
+	private Character gender;
 	
 	@Column(nullable=false)
 	@Temporal(TemporalType.DATE)
@@ -46,16 +46,16 @@ public class Employee {
 	
 	@OneToMany(mappedBy="employeeId", cascade=CascadeType.ALL)
 	private Set<EmployeeLoanCard> employeeLoanCard;
-//	
-//	@OneToMany(mappedBy="issueId", cascade=CascadeType.ALL)
-//	private Set<EmployeeItemIssueDetails> employeeItemIssueDetails;
+	
+	@OneToMany(mappedBy="issueId", cascade=CascadeType.ALL)
+	private Set<EmployeeItemIssueDetails> employeeItemIssueDetails;
 	
 	public Employee() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Employee(String employeeId, String name, String designation, String department, String gender,
+	public Employee(String employeeId, String name, String designation, String department, Character gender,
 			Date dateOfBirth, Date dateOfJoining) {
 		super();
 		this.employeeId = employeeId;
@@ -114,11 +114,11 @@ public class Employee {
 		this.department = department;
 	}
 
-	public String getGender() {
+	public Character getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Character gender) {
 		this.gender = gender;
 	}
 

@@ -62,6 +62,14 @@ public class Loan {
 		this.loanType = loanType;
 	}
 	
+	public Set<EmployeeLoanCard> getEmployeeLoanCard() {
+		return employeeLoanCard;
+	}
+
+	public void setEmployeeLoanCard(Set<EmployeeLoanCard> employeeLoanCard) {
+		this.employeeLoanCard = employeeLoanCard;
+	}
+
 	@Override
 	public String toString() {
 		return "Loan [loanId=" + loanId + ", durationInYears=" + durationInYears + ", loanType=" + loanType + "]";
