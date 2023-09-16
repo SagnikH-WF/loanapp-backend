@@ -24,8 +24,7 @@ public class EmployeeLoanCard {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int employeeCardId;
 	
-	@Column(nullable=false)
-	
+	@Column(nullable=false)	
 	private LocalDate cardIssueDate;
 	
 	@ManyToOne
