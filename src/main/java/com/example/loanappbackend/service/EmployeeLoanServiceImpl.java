@@ -40,19 +40,13 @@ public class EmployeeLoanServiceImpl implements EmployeeLoanService {
 	public String applyForLoan(EmployeeLoan employeeLoan) {
 		
 		String result = "";
-		LocalDate currentDate = LocalDate.now();
-		
-//		EmployeeCardDetails ecd=new EmployeeCardDetails();
-		EmployeeLoanCard employeeLoanCard;
+		LocalDate currentDate = LocalDate.now();						
 		
 		Employee employee = employeeRepository.findById(employeeLoan.getEmployeeId()).get();
 		String loanId = loanRepository.findByLoanType(employeeLoan.getItemCategory());
 		Loan loan = loanRepository.findById(loanId).get();
 		
-		employeeLoanCard = new EmployeeLoanCard(currentDate, employee, loan);
-//		employeeLoanCard.setEmployee(employee);
-//		ecd.setCard_issue_date(LocalDate.now());
-//		ecd.setLoan(l);
+		EmployeeLoanCard employeeLoanCard = new EmployeeLoanCard(currentDate, employee, loan);				
 		
 		EmployeeLoanCard savedEmployeeLoanCard = employeeLoanCardRepository.save(employeeLoanCard);
 		if(savedEmployeeLoanCard != null) {
@@ -62,24 +56,29 @@ public class EmployeeLoanServiceImpl implements EmployeeLoanService {
 			result="Error in updating card table";
 		}
 		
-		//employee item issue card 
-		
+		//employee item issue card 		
 		int loanDuration=loan.getDurationInYears();
-		
-		EmployeeItemIssueDetails employeeItemIssueDetails;
-		Item item = itemRepository.findById(itemRepository.findItemDetails(employeeLoan.getItemCategory(), employeeLoan.getItemDescription(), employeeLoan.getItemValuation(), employeeLoan.getItemMake())).get();
-		
+				
+//		Item item = itemRepository.findById(itemRepository.findItemDetails(employeeLoan.getItemCategory(), employeeLoan.getItemDescription(), employeeLoan.getItemValuation(), employeeLoan.getItemMake())).get();
+//		
 		LocalDate parsedLocalDate=LocalDate.parse(currentDate.toString());
 		LocalDate returnDate = parsedLocalDate.plusYears(loanDuration);
+//		
+//		EmployeeItemIssueDetails employeeItemIssueDetails = new EmployeeItemIssueDetails(currentDate, returnDate, employee, item);
+//
+//		EmployeeItemIssueDetails savedEmployeeItemIssueDetails = employeeItemIssueDetailsRepository.save(employeeItemIssueDetails);
+		EmployeeItemIssueDetails issueDetails = new EmployeeItemIssueDetails();
+		Item issuedItem = itemRepository.findItemDetails(employeeLoan.getItemCategory(),
+				employeeLoan.getItemDescription(), employeeLoan.getItemValuation(), employeeLoan.getItemMake());
 		
-		employeeItemIssueDetails = new EmployeeItemIssueDetails(currentDate, returnDate, employee, item);
+issueDetails.setEmployee(employee);
+issueDetails.setIssueDate(currentDate);
+issueDetails.setItem(issuedItem);
+issueDetails.setReturnDate(returnDate);
+
+EmployeeItemIssueDetails issueDetailsResponseFromSaveProcedure = employeeItemIssueDetailsRepository.save(issueDetails);
 		
-//		eid.setEmployee(e);
-//		eid.setItem(it);
-//		eid.setIssueDate(LocalDate.now());
-//		eid.setReturnDate(parsedLocalDate.plusYears(loanDuration));
-		EmployeeItemIssueDetails savedEmployeeItemIssueDetails = employeeItemIssueDetailsRepository.save(employeeItemIssueDetails);
-		if(savedEmployeeItemIssueDetails != null) {
+		if(issueDetailsResponseFromSaveProcedure != null) {
 			result += " Issue Table updated";
 		}
 		else {

@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import java.time.LocalDate;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
@@ -43,9 +45,11 @@ public class Employee {
 	private LocalDate dateOfJoining;
 	
 	@OneToMany(mappedBy="employee", cascade=CascadeType.ALL)
+	@JsonManagedReference
 	private Set<EmployeeLoanCard> employeeLoanCard;
 	
 	@OneToMany(mappedBy="employee", cascade=CascadeType.ALL)
+	@JsonManagedReference
 	private Set<EmployeeItemIssueDetails> employeeItemIssueDetails;
 	
 	public Employee() {

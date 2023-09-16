@@ -2,6 +2,8 @@ package com.example.loanappbackend.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,6 +25,7 @@ public class Loan {
 	private String loanType;
 
 	@OneToMany(mappedBy="loan", cascade=CascadeType.ALL)
+	@JsonManagedReference
 	private Set<EmployeeLoanCard> employeeLoanCard;
 	
 	public Loan() {

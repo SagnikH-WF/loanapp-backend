@@ -3,6 +3,8 @@ package com.example.loanappbackend.model;
 import java.time.LocalDate;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,10 +34,12 @@ public class EmployeeItemIssueDetails {
 	
 	@ManyToOne
 	@JoinColumn(nullable=false, referencedColumnName="employeeId")
+	@JsonBackReference
 	private Employee employee;
 	
 	@ManyToOne
 	@JoinColumn(nullable=false, referencedColumnName="itemId")
+	@JsonBackReference
 	private Item item;
 	
 	public EmployeeItemIssueDetails() {
