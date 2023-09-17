@@ -1,9 +1,13 @@
 package com.example.loanappbackend.service;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.loanappbackend.model.Employee;
@@ -58,7 +62,10 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
     
     @Override
-    public String checkLogin(UserLogin user) {
+    public ResponseEntity<?> checkLogin(UserLogin user) {
+    	
+    	Map<String, Object> map = new LinkedHashMap<String, Object>();
+    	
     	String id = user.getUserId();
     	String password = user.getPassword();
     	Optional<Employee> employee1 = employeeRepository.findById(id);
@@ -66,14 +73,22 @@ public class EmployeeServiceImpl implements EmployeeService{
         if (employee1.isPresent()) {
         	Employee originalEmployee = employee1.get();
         	
-        	if (Objects.equals(password, originalEmployee.getPassword()))
-        		return "Successful!!";
-        	else
-        		return "Password mismatch";
+        	if (Objects.equals(password, originalEmployee.getPassword())) {
+        		map.put("employeeId", originalEmployee.getEmployeeId());
+        		map.put("designation", originalEmployee.getDesignation());
+        		map.put("department", originalEmployee.getDepartment());
+        		map.put("message", "successfull!!");
+        		return new ResponseEntity<>(map, HttpStatus.OK);
+        	}
+        	else {
+        		map.put("message", "password mismatch");
+        		return new ResponseEntity<>(map, HttpStatus.FORBIDDEN);
+        	}
         		
         }
         
-        return "Employee with userId not present";
+        map.put("message", "user not found");
+        return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         
     }
 }

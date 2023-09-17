@@ -1,5 +1,7 @@
 package com.example.loanappbackend.service;
 
+import org.springframework.http.ResponseEntity;
+
 import com.example.loanappbackend.model.Employee;
 import com.example.loanappbackend.model.UserLogin;
 
@@ -13,6 +15,6 @@ public interface EmployeeService {
 
     String deleteEmployeeById(String id);
     
-    String checkLogin(UserLogin user);
+    ResponseEntity<?> checkLogin(UserLogin user);
     
 }

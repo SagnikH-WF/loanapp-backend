@@ -1,6 +1,7 @@
 package com.example.loanappbackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.loanappbackend.model.Employee;
@@ -8,6 +9,7 @@ import com.example.loanappbackend.model.UserLogin;
 import com.example.loanappbackend.service.EmployeeService;
 
 @RestController
+@CrossOrigin(origins="http://localhost:3000")
 public class EmployeeController {
 
 	@Autowired
@@ -34,7 +36,7 @@ public class EmployeeController {
     }
     
     @PostMapping("/employee/login")
-    public String checkLoginCredentials(@RequestBody UserLogin user) {
+    public ResponseEntity<?> checkLoginCredentials(@RequestBody UserLogin user) {
     	
     	return employeeService.checkLogin(user);
     }
