@@ -38,7 +38,7 @@ public class EmployeeLoanCardControllerTest {
     }
 
     @Test
-    public void testSaveEmployeeLoanCard() throws Exception {
+    public void saveEmployeeLoanCard() throws Exception {
         // Create a sample EmployeeLoanCard object for testing
         EmployeeLoanCard employeeLoanCard = new EmployeeLoanCard();
         employeeLoanCard.setEmployeeCardId(1);

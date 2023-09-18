@@ -26,7 +26,7 @@ public class EmployeeLoanControllerTest {
     
 
     @Test
-    public void testApplyForLoan() throws Exception {
+    public void applyForLoan() throws Exception {
         // Create a sample EmployeeLoan object for testing
         EmployeeLoan employeeLoan = new EmployeeLoan();
         employeeLoan.setEmployeeId("L1");

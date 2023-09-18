@@ -41,7 +41,7 @@ public class LoanServiceTest {
 	
 	//JUnit test for saveLoan method
 	@Test
-	void saveLoanTest() {
+	void saveLoan() {
 		
 		when(loanRepository.save(loan)).thenReturn(loan);
 		
@@ -53,7 +53,7 @@ public class LoanServiceTest {
 	
 	//JUnit test for getLoanList method
 	@Test
-	void getLoanListTest() {
+	void getLoanList() {
 		
 		when(loanRepository.findAll()).thenReturn(List.of(loan));
 		
@@ -66,7 +66,7 @@ public class LoanServiceTest {
 	}
 	
 	@Test
-	void getLoanByIdTest() {
+	void getLoanById() {
 		
 		when(loanRepository.findById("L1")).thenReturn(Optional.of(loan));
 		
@@ -76,24 +76,23 @@ public class LoanServiceTest {
 		
 	}
 	
-//	@Test
-//	void deleteLoanById() {
-//	
-//		String loanId="L1";
-//		doNothing().when(loanRepository).deleteById(loanId);
-//		
-//		String result = loanService.deleteLoanById(loanId);
-//		
-//		System.out.println(result);
-//		assertThat(result).isNotNull();
-//		assertEquals("Loan deleted successfully",result);
-//		
-//		verify(loanRepository,times(1)).deleteById(loanId);
-//		
-//	}
+	 @Test
+	    public void deleteLoanById() {
+	        // Define some sample data
+	        String loanId = "123";
+
+	        // Mock the repository behavior to simulate a successful delete
+	        when(loanRepository.findById(loanId)).thenReturn(Optional.of(new Loan()));
+
+	        // Call the service method
+	        String result = loanService.deleteLoanById(loanId);
+
+	        // Assert that the result indicates success
+	        assertEquals("Loan deleted successfully", result);
+	    }
 	
 	@Test
-	void getDistinctLoanTypeTest() {
+	void getDistinctLoanType() {
 		
 		List<String> expectedDistinctLoanTypes = Arrays.asList("Home Loan", "Car Loan", "Personal Loan");
 
