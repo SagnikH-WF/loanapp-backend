@@ -47,19 +47,7 @@ public class EmployeeLoanServiceTest {
 
     @Before
     public void setUp() {
-//        employeeRepository = Mockito.mock(EmployeeRepository.class);
-//        loanRepository = Mockito.mock(LoanRepository.class);
-//        employeeLoanCardRepository = Mockito.mock(EmployeeLoanCardRepository.class);
-//        employeeItemIssueDetailsRepository = Mockito.mock(EmployeeItemIssueDetailsRepository.class);
-//        itemRepository = Mockito.mock(ItemRepository.class);
-//
-//        employeeLoanService = new EmployeeLoanService(
-//            employeeRepository,
-//            loanRepository,
-//            employeeLoanCardRepository,
-//            employeeItemIssueDetailsRepository,
-//            itemRepository
-//        );
+
     }
 
     @Test
@@ -71,13 +59,16 @@ public class EmployeeLoanServiceTest {
         Item item = new Item("I1","chair",'Y',"wooden","furniture",30);
 
         // Mock repository behaviors
-        when(employeeRepository.findById(employeeLoan.getEmployeeId())).thenReturn(Optional.of(employee));
-        when(loanRepository.findByLoanType(employeeLoan.getItemCategory())).thenReturn("loanId");
-        when(loanRepository.findById("loanId")).thenReturn(Optional.of(loan));
+        when(employeeRepository.findById("123")).thenReturn(Optional.of(employee));
+        System.out.println(employeeRepository);
+        when(loanRepository.findByLoanType("furniture")).thenReturn("L1");
+        when(loanRepository.findById("L1")).thenReturn(Optional.of(loan));
         when(itemRepository.findItemDetails("furniture","chair",30,"wooden")).thenReturn(item);
 
         // Call the service method
         String result = employeeLoanService.applyForLoan(employeeLoan);
+        
+        System.out.println(result);
 
         // Assert that the result is as expected
         assertEquals("Card table updated Issue Table updated", result);

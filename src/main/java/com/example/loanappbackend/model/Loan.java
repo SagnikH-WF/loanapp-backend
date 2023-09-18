@@ -25,7 +25,7 @@ public class Loan {
 	private String loanType;
 
 	@OneToMany(mappedBy="loan", cascade=CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="loan2")
 	private Set<EmployeeLoanCard> employeeLoanCard;
 	
 	public Loan() {
