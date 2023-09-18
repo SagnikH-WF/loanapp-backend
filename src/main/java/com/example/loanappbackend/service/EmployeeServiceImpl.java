@@ -2,6 +2,7 @@ package com.example.loanappbackend.service;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -13,20 +14,27 @@ import org.springframework.stereotype.Service;
 import com.example.loanappbackend.model.Employee;
 import com.example.loanappbackend.model.UserLogin;
 import com.example.loanappbackend.repository.EmployeeRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
 	@Autowired
     private EmployeeRepository employeeRepository;
 	
-//	public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
-//		this.employeeRepository=employeeRepository;
-//	}
 
     @Override
     public Employee saveEmployee(Employee employee) {
     	//TODO: stop updating existing primary key
-        return employeeRepository.save(employee);
+    	Optional<Employee> employeeFromRepository = employeeRepository.findById(employee.getEmployeeId());
+    	if(employeeFromRepository == null) {    		
+    		return employeeRepository.save(employee);
+    	} else {
+    		return employeeFromRepository.get();
+    	}
     }    
 
     @Override
@@ -38,23 +46,28 @@ public class EmployeeServiceImpl implements EmployeeService{
         return null;
     }
 
-//    @Override
-//    public Employee updateEmployeeById(String id, Employee employee) {
-//        Optional<Employee> employee1 = employeeRepository.findById(id);
-//
-//        if (employee1.isPresent()) {
-//            Employee originalEmployee = employee1.get();
-//
-//            if (Objects.nonNull(employee.getEmployeeName()) && !"".equalsIgnoreCase(employee.getEmployeeName())) {
-//                originalEmployee.setEmployeeName(employee.getEmployeeName());
-//            }
-//            if (Objects.nonNull(employee.getEmployeeSalary()) && employee.getEmployeeSalary() != 0) {
-//                originalEmployee.setEmployeeSalary(employee.getEmployeeSalary());
-//            }
-//            return employeeRepository.save(originalEmployee);
-//        }
-//        return null;
-//    }
+    @Override
+    public ResponseEntity<Employee> updateEmployeeById(String id, JsonPatch patch) {
+        try {
+        	Optional<Employee> employee = employeeRepository.findById(id);
+        	employee.orElseThrow();	//NoSuchElementException is thrown
+        	
+        	Employee employeePatched = applyPatchToEmployee(patch, employee.get());
+        	employeeRepository.save(employeePatched);
+        	
+        	return ResponseEntity.ok(employeePatched);
+        } catch (JsonPatchException | JsonProcessingException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (NoSuchElementException e) {
+        	return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }        
+    }
+    
+    private Employee applyPatchToEmployee(JsonPatch patch, Employee targetEmployee) throws  JsonPatchException, JsonProcessingException {
+    	ObjectMapper objectMapper = new ObjectMapper();
+    	JsonNode patched = patch.apply(objectMapper.convertValue(targetEmployee, JsonNode.class));
+    	return objectMapper.treeToValue(patched, Employee.class);
+    }
 
     @Override
     public String deleteEmployeeById(String id) {

@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.example.loanappbackend.model.Employee;
 import com.example.loanappbackend.model.UserLogin;
+import com.github.fge.jsonpatch.JsonPatch;
 
 public interface EmployeeService {
 	
@@ -11,7 +12,7 @@ public interface EmployeeService {
 	
 	Employee getEmployeeById(String id);
 
-//    Employee updateEmployeeById(String id, Employee employee);
+    ResponseEntity<Employee> updateEmployeeById(String id, JsonPatch patch);
 
     String deleteEmployeeById(String id);
     

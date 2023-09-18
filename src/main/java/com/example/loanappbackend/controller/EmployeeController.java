@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.loanappbackend.model.Employee;
 import com.example.loanappbackend.model.UserLogin;
 import com.example.loanappbackend.service.EmployeeService;
+import com.github.fge.jsonpatch.JsonPatch;
 
 @RestController
 @CrossOrigin(origins="http://localhost:3000")
@@ -25,10 +26,10 @@ public class EmployeeController {
         return employeeService.getEmployeeById(id);
     }
 
-//    @PutMapping("/employee/{id}")
-//    public Employee updateEmployee(@PathVariable("id") String id, @RequestBody Employee employee) {
-//        return employeeService.updateEmployeeById(id, employee);
-//    }
+    @PatchMapping(path = "/employee/{id}", consumes = "application/json-patch+json")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable("id") String id, @RequestBody JsonPatch patch) {
+        return employeeService.updateEmployeeById(id, patch);
+    }
 
     @DeleteMapping("/employee/{id}")
     public String deleteEmployee(@PathVariable("id") String id) {

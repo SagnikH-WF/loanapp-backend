@@ -29,12 +29,12 @@ public class EmployeeLoanCard {
 	
 	@ManyToOne
 	@JoinColumn(nullable=false, referencedColumnName="employeeId")
-	@JsonBackReference
+	@JsonBackReference(value="loan")
 	private Employee employee;
 	
 	@ManyToOne
 	@JoinColumn(nullable=false, referencedColumnName="loanId")
-	@JsonBackReference
+	@JsonBackReference(value="loan2")
 	private Loan loan;
 
 	public EmployeeLoanCard() {

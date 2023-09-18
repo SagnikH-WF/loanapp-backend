@@ -35,7 +35,7 @@ public class Item {
 	private int itemValuation;
 	
 	@OneToMany(mappedBy="item", cascade=CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="item2")
 	private Set<EmployeeItemIssueDetails> employeeIssueDetails;
 	
 

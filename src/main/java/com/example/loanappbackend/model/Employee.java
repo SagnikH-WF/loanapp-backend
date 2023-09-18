@@ -45,11 +45,11 @@ public class Employee {
 	private LocalDate dateOfJoining;
 	
 	@OneToMany(mappedBy="employee", cascade=CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="loan")
 	private Set<EmployeeLoanCard> employeeLoanCard;
 	
 	@OneToMany(mappedBy="employee", cascade=CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference(value="item")
 	private Set<EmployeeItemIssueDetails> employeeItemIssueDetails;
 	
 	public Employee() {
