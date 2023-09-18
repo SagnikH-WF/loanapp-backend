@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,13 +28,13 @@ public class EmployeeLoanCard {
 	@Column(nullable=false)	
 	private LocalDate cardIssueDate;
 	
-	@ManyToOne
-	@JoinColumn(nullable=false, referencedColumnName="employeeId")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(referencedColumnName="employeeId")
 	@JsonBackReference(value="loan")
 	private Employee employee;
 	
-	@ManyToOne
-	@JoinColumn(nullable=false, referencedColumnName="loanId")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(referencedColumnName="loanId")
 	@JsonBackReference(value="loan2")
 	private Loan loan;
 

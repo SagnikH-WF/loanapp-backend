@@ -17,6 +17,10 @@ import com.example.loanappbackend.repository.EmployeeRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.JsonPatchException;
 
@@ -30,8 +34,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     public Employee saveEmployee(Employee employee) {
     	//TODO: stop updating existing primary key
     	Optional<Employee> employeeFromRepository = employeeRepository.findById(employee.getEmployeeId());
-    	if(employeeFromRepository == null) {    		
-    		return employeeRepository.save(employee);
+    	if(employeeFromRepository.isEmpty()) {
+    		System.out.println("saving employee");
+	    	return employeeRepository.save(employee);
     	} else {
     		return employeeFromRepository.get();
     	}
@@ -51,6 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         try {
         	Optional<Employee> employee = employeeRepository.findById(id);
         	employee.orElseThrow();	//NoSuchElementException is thrown
+        	System.out.println(employee.get().toString());
         	
         	Employee employeePatched = applyPatchToEmployee(patch, employee.get());
         	employeeRepository.save(employeePatched);
@@ -64,9 +70,24 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
     
     private Employee applyPatchToEmployee(JsonPatch patch, Employee targetEmployee) throws  JsonPatchException, JsonProcessingException {
-    	ObjectMapper objectMapper = new ObjectMapper();
+    	ObjectMapper objectMapper = JsonMapper.builder() // or different mapper for other format
+    			   .addModule(new ParameterNamesModule())
+    			   .addModule(new Jdk8Module())
+    			   .addModule(new JavaTimeModule())
+    			   // and possibly other configuration, modules, then:
+    			   .build();
+//    	objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+    	System.out.println("object mapper made\n");    
+    	System.out.println(targetEmployee.toString());
+    	
     	JsonNode patched = patch.apply(objectMapper.convertValue(targetEmployee, JsonNode.class));
-    	return objectMapper.treeToValue(patched, Employee.class);
+    	
+    	System.out.println("patched done");
+    	Employee updatedEmployee =  objectMapper.treeToValue(patched, Employee.class);
+    	System.out.println(updatedEmployee.toString());
+    	System.out.println("");
+    	return updatedEmployee;    	
     }
 
     @Override
