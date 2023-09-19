@@ -24,8 +24,9 @@ public class Loan {
 	@Column(unique=true, length=15, nullable=false)
 	private String loanType;
 
-	@OneToMany(mappedBy="loan", cascade=CascadeType.ALL)
-	@JsonManagedReference
+
+	@OneToMany(mappedBy="loan")
+	@JsonManagedReference(value="loan2")
 	private Set<EmployeeLoanCard> employeeLoanCard;
 	
 	public Loan() {

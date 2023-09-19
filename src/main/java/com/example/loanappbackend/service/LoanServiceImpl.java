@@ -51,4 +51,20 @@ public class LoanServiceImpl implements LoanService {
 	public List<String> getDistinctLoanTypes() {
 		return loanRepository.getDistinctLoanTypes();
 	}
+	
+	@Override
+	public String updateLoanById(String loanId,Loan loan) {
+		String res = "";
+		Loan l;
+		Optional<Loan> opt = loanRepository.findById(loanId);
+		if(opt.isPresent()) {
+			l = opt.get();
+			l.setDurationInYears(loan.getDurationInYears());
+			l.setLoanType(loan.getLoanType());
+			loanRepository.save(l);
+			res = "Loan updated successfully";
+		}
+		else res = "Loan not found";
+		return res;
+	}
 }

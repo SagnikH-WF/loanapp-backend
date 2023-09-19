@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,17 +25,18 @@ public class EmployeeLoanCard {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int employeeCardId;
 	
-	@Column(nullable=false)	
+	@Column(nullable=false)
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate cardIssueDate;
 	
 	@ManyToOne
 	@JoinColumn(nullable=false, referencedColumnName="employeeId")
-	@JsonBackReference
+	@JsonBackReference(value="loan")
 	private Employee employee;
 	
 	@ManyToOne
 	@JoinColumn(nullable=false, referencedColumnName="loanId")
-	@JsonBackReference
+	@JsonBackReference(value="loan2")
 	private Loan loan;
 
 	public EmployeeLoanCard() {
