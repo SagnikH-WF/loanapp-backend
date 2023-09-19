@@ -1,6 +1,7 @@
 package com.example.loanappbackend.service;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -41,6 +42,11 @@ public class EmployeeServiceImpl implements EmployeeService{
     		return employeeFromRepository.get();
     	}
     }    
+    
+    @Override
+    public List<Employee> getAllEmployees() {
+    	return employeeRepository.findAll();
+    }
 
     @Override
     public Employee getEmployeeById(String id) {

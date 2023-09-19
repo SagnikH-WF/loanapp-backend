@@ -2,6 +2,9 @@ package com.example.loanappbackend.model;
 
 import java.util.Set;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -25,7 +28,8 @@ public class Loan {
 	@Column(unique=true, length=15, nullable=false)
 	private String loanType;
 
-	@OneToMany(mappedBy="loan", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OnDelete(action=OnDeleteAction.CASCADE)
+	@OneToMany(mappedBy="loan", cascade=CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@JsonManagedReference(value="loan2")
 	private Set<EmployeeLoanCard> employeeLoanCard;
 	

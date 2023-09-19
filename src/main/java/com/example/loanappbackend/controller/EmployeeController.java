@@ -1,5 +1,7 @@
 package com.example.loanappbackend.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,11 @@ public class EmployeeController {
     @PostMapping("/employee")
     public Employee saveEmployee(@RequestBody Employee employee) {
         return employeeService.saveEmployee(employee);
+    }
+    
+    @GetMapping("/employee")
+    public List<Employee> getAllEmployees() {
+    	return employeeService.getAllEmployees();
     }
 
     @GetMapping("/employee/{id}")
@@ -42,8 +49,7 @@ public class EmployeeController {
     }
     
     @PostMapping("/employee/login")
-    public ResponseEntity<?> checkLoginCredentials(@RequestBody UserLogin user) {
-    	
+    public ResponseEntity<?> checkLoginCredentials(@RequestBody UserLogin user) {    	
     	return employeeService.checkLogin(user);
     }
 }

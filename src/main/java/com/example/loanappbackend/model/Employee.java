@@ -5,6 +5,9 @@ import jakarta.persistence.Entity;
 import java.time.LocalDate;
 import java.util.Set;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -44,11 +47,13 @@ public class Employee {
 	@Column
 	private LocalDate dateOfJoining;
 	
-	@OneToMany(mappedBy="employee", cascade=CascadeType.ALL)
+	@OnDelete(action=OnDeleteAction.CASCADE)
+	@OneToMany(mappedBy="employee", cascade=CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference(value="loan")
 	private Set<EmployeeLoanCard> employeeLoanCard;
 	
-	@OneToMany(mappedBy="employee", cascade=CascadeType.ALL)
+	@OnDelete(action=OnDeleteAction.CASCADE)
+	@OneToMany(mappedBy="employee", cascade=CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference(value="item")
 	private Set<EmployeeItemIssueDetails> employeeItemIssueDetails;
 	

@@ -1,5 +1,7 @@
 package com.example.loanappbackend.service;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 
 import com.example.loanappbackend.model.Employee;
@@ -9,6 +11,8 @@ import com.github.fge.jsonpatch.JsonPatch;
 public interface EmployeeService {
 	
 	Employee saveEmployee(Employee employee);
+	
+	List<Employee> getAllEmployees();
 	
 	Employee getEmployeeById(String id);
 
