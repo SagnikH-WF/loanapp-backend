@@ -30,6 +30,11 @@ public class EmployeeController {
     public ResponseEntity<Employee> updateEmployee(@PathVariable("id") String id, @RequestBody JsonPatch patch) {
         return employeeService.updateEmployeeById(id, patch);
     }
+    
+    @PutMapping(path = "/employee/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable("id") String id, @RequestBody Employee employee) {
+        return employeeService.updateEmployeeById(id, employee);
+    }
 
     @DeleteMapping("/employee/{id}")
     public String deleteEmployee(@PathVariable("id") String id) {

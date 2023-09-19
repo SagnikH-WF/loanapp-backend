@@ -13,6 +13,8 @@ public interface EmployeeService {
 	Employee getEmployeeById(String id);
 
     ResponseEntity<Employee> updateEmployeeById(String id, JsonPatch patch);
+    
+    ResponseEntity<Employee> updateEmployeeById(String id, Employee employee);
 
     String deleteEmployeeById(String id);
     

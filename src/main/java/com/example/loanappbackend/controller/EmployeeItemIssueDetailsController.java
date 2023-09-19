@@ -19,7 +19,8 @@ public class EmployeeItemIssueDetailsController {
 	EmployeeItemIssueDetailsService employeeItemIssueDetailsService;
 	
 	@GetMapping("/itemsIssued")
-	public List<ItemIssue> gettemsIssuedToEmployee(@RequestParam String employeeId) {
+	public List<ItemIssue> getItemsIssuedToEmployee(@RequestParam String employeeId) {
+		//send current date to the repo to check if the current date is greater than the return date
 		return employeeItemIssueDetailsService.findItemsIssuedToEmployee(employeeId);
 	}
 }

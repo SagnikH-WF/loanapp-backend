@@ -69,6 +69,21 @@ public class EmployeeServiceImpl implements EmployeeService{
         }        
     }
     
+    @Override
+    public ResponseEntity<Employee> updateEmployeeById(String id, Employee employee) {
+    	try {
+    		Optional<Employee> employeeFromRepository = employeeRepository.findById(id);
+    		employeeFromRepository.orElseThrow();
+    		
+    		Employee updatedEmployee = employeeRepository.save(employee);
+    		return ResponseEntity.ok(updatedEmployee);    				
+    	} catch (NoSuchElementException e) {
+        	return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }  catch(Exception e) {
+        	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
     private Employee applyPatchToEmployee(JsonPatch patch, Employee targetEmployee) throws  JsonPatchException, JsonProcessingException {
     	ObjectMapper objectMapper = JsonMapper.builder() // or different mapper for other format
     			   .addModule(new ParameterNamesModule())
