@@ -20,4 +20,6 @@ public interface EmployeeService {
     
     ResponseEntity<?> checkLogin(UserLogin user);
     
+    ResponseEntity<?> checkAdminLogin(UserLogin user);
+    
 }

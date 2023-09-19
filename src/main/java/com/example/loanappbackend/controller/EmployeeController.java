@@ -46,4 +46,10 @@ public class EmployeeController {
     	
     	return employeeService.checkLogin(user);
     }
+    
+    @PostMapping("/employee/admin/login")
+    public ResponseEntity<?> checkAdminLoginCredentials(@RequestBody UserLogin user) {
+    	
+    	return employeeService.checkAdminLogin(user);
+    }
 }
