@@ -156,4 +156,38 @@ public class EmployeeServiceImpl implements EmployeeService{
         return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         
     }
+    
+    @Override
+    public ResponseEntity<?> checkAdminLogin(UserLogin user){
+    	
+    	
+    	Map<String, Object> map = new LinkedHashMap<String, Object>();
+    	String id = user.getUserId();
+    	String password = user.getPassword();
+    	Optional<Employee> employee1 = employeeRepository.findById(id);
+    	
+    	if(employee1.isPresent()) {
+    		Employee originalEmployee = employee1.get();
+    		
+    		if(Objects.equals(originalEmployee.getIsAdmin().toLowerCase(),"yes")) {
+    			if(Objects.equals(password, originalEmployee.getPassword())) {
+    				map.put("employeeId", originalEmployee.getEmployeeId());
+            		map.put("designation", originalEmployee.getDesignation());
+            		map.put("department", originalEmployee.getDepartment());
+            		map.put("message", "successfull!!");
+            		return new ResponseEntity<>(map, HttpStatus.OK);
+    			}
+    			else {
+    				map.put("message", "password mismatch");
+            		return new ResponseEntity<>(map, HttpStatus.FORBIDDEN);
+    			}
+    		}
+    		else {
+    			map.put("message", "You are not an admin");
+    			return new ResponseEntity<>(map,HttpStatus.NOT_FOUND);
+    		}
+    	}
+    	 map.put("message", "user not found");
+         return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+    }
 }

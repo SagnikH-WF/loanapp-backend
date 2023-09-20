@@ -48,8 +48,15 @@ public class EmployeeController {
         return employeeService.deleteEmployeeById(id);
     }
     
-    @PostMapping("/employee/login")
-    public ResponseEntity<?> checkLoginCredentials(@RequestBody UserLogin user) {    	
+    @PostMapping("/employee/user/login")
+    public ResponseEntity<?> checkLoginCredentials(@RequestBody UserLogin user) {
+    	
     	return employeeService.checkLogin(user);
+    }
+    
+    @PostMapping("/employee/admin/login")
+    public ResponseEntity<?> checkAdminLoginCredentials(@RequestBody UserLogin user) {
+    	
+    	return employeeService.checkAdminLogin(user);
     }
 }

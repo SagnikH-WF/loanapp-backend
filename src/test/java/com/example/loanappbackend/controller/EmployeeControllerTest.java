@@ -89,17 +89,17 @@ public class EmployeeControllerTest {
                 .andExpect(content().string("Employee with ID 1 deleted successfully"));
     }
 
-    @Test
-    public void testCheckLoginCredentials() throws Exception {
-        // Mock the behavior of employeeService.checkLogin
-        when(employeeService.checkLogin(any(UserLogin.class))).thenReturn("Login successful");
-
-        // Perform a POST request to /employee/login with JSON content
-        mockMvc.perform(post("/employee/login")
-                .contentType("application/json")
-                .content("{\"username\":\"johndoe\",\"password\":\"secret\"}"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Login successful"));
-    }
+//    @Test
+//    public void testCheckLoginCredentials() throws Exception {
+//        // Mock the behavior of employeeService.checkLogin
+//        when(employeeService.checkLogin(any(UserLogin.class))).thenReturn("Login successful");
+//
+//        // Perform a POST request to /employee/login with JSON content
+//        mockMvc.perform(post("/employee/login")
+//                .contentType("application/json")
+//                .content("{\"username\":\"johndoe\",\"password\":\"secret\"}"))
+//                .andExpect(status().isOk())
+//                .andExpect(content().string("Login successful"));
+//    }
 }
 

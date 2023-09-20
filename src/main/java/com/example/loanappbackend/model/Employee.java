@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.DynamicInsert;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -18,6 +19,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
+@DynamicInsert
 @Entity
 @Table(name="employee")
 public class Employee {	
@@ -57,6 +59,18 @@ public class Employee {
 	@JsonManagedReference(value="item")
 	private Set<EmployeeItemIssueDetails> employeeItemIssueDetails;
 	
+	
+	@Column(columnDefinition = "varchar(255) default 'no'")
+	private String isAdmin;
+	
+	public String getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(String isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
 	public Employee() {
 		super();
 		// TODO Auto-generated constructor stub
