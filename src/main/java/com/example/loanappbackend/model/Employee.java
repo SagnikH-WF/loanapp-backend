@@ -48,12 +48,12 @@ public class Employee {
 	private LocalDate dateOfJoining;
 	
 	@OnDelete(action=OnDeleteAction.CASCADE)
-	@OneToMany(mappedBy="employee", cascade=CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy="employee", cascade=CascadeType.ALL)
 	@JsonManagedReference(value="loan")
 	private Set<EmployeeLoanCard> employeeLoanCard;
 	
 	@OnDelete(action=OnDeleteAction.CASCADE)
-	@OneToMany(mappedBy="employee", cascade=CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy="employee", cascade=CascadeType.ALL)
 	@JsonManagedReference(value="item")
 	private Set<EmployeeItemIssueDetails> employeeItemIssueDetails;
 	
