@@ -41,7 +41,7 @@ public class EmployeeController {
         return employeeService.deleteEmployeeById(id);
     }
     
-    @PostMapping("/employee/login")
+    @PostMapping("/employee/user/login")
     public ResponseEntity<?> checkLoginCredentials(@RequestBody UserLogin user) {
     	
     	return employeeService.checkLogin(user);
