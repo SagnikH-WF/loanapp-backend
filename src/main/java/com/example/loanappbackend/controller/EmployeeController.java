@@ -49,14 +49,12 @@ public class EmployeeController {
     }
     
     @PostMapping("/employee/user/login")
-    public ResponseEntity<?> checkLoginCredentials(@RequestBody UserLogin user) {
-    	
+    public ResponseEntity<?> checkLoginCredentials(@RequestBody UserLogin user) {    	
     	return employeeService.checkLogin(user);
     }
     
     @PostMapping("/employee/admin/login")
-    public ResponseEntity<?> checkAdminLoginCredentials(@RequestBody UserLogin user) {
-    	
+    public ResponseEntity<?> checkAdminLoginCredentials(@RequestBody UserLogin user) {    	
     	return employeeService.checkAdminLogin(user);
     }
 }

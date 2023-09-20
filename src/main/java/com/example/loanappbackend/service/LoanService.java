@@ -1,7 +1,8 @@
 package com.example.loanappbackend.service;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 
 import com.example.loanappbackend.model.Loan;
 
@@ -13,9 +14,9 @@ public interface LoanService {
 	
 	List<Loan> getAllLoans();
 	
-//	Loan updateLoanById(String id, Loan loan);
+	ResponseEntity<Loan> updateLoanById(String id, Loan loan);
 	
-	String deleteLoanById(String id);
+	ResponseEntity<?> deleteLoanById(String id);
 	
 	List<String> getDistinctLoanTypes();
 		

@@ -1,11 +1,14 @@
 package com.example.loanappbackend.service;
 
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.loanappbackend.model.Loan;
@@ -33,18 +36,35 @@ public class LoanServiceImpl implements LoanService {
 	
 	@Override
 	public List<Loan> getAllLoans() {
-		List<Loan> loans = loanRepository.findAll();		
-		
-		return loans;
+		return loanRepository.findAll();
 	}
 	
 	@Override
-	public String deleteLoanById(String id) {
+	public ResponseEntity<Loan> updateLoanById(String id, Loan loan) {
+		try {
+    		Optional<Loan> loanFromRepository = loanRepository.findById(id);
+    		loanFromRepository.orElseThrow();
+    		
+    		Loan updatedLoan = loanRepository.save(loan);
+    		return ResponseEntity.ok(updatedLoan);    		
+    	} catch (NoSuchElementException e) {
+        	return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }  catch(Exception e) {
+        	e.printStackTrace();
+        	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+	}
+	
+	@Override
+	public ResponseEntity<?> deleteLoanById(String id) {
+		Map<String, Object> map = new LinkedHashMap<String, Object>();
+		
 		if(loanRepository.findById(id).isPresent()) {
 			loanRepository.deleteById(id);
-			return "Loan deleted successfully";
+			return ResponseEntity.ok("Loan deleted successfully");
 		}
-		return "No such loan in the database";
+		map.put("message", "Loan not found");
+        return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
 	}
 	
 	@Override	

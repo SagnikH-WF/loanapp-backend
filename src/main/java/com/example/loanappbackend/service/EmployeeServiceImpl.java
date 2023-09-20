@@ -78,16 +78,11 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public ResponseEntity<Employee> updateEmployeeById(String id, Employee employee) {
     	try {
-    		Employee updatedEmployee=null;
-    		Employee employeeFromRepository = employeeRepository.findById(id).orElse(null);
-    	//	employeeFromRepository.orElseThrow();
-    		if (employeeFromRepository!=null)
-    		{
-    		updatedEmployee = employeeRepository.save(employee);
-    		System.out.println("employee found");
-    		}
-    		return ResponseEntity.ok(updatedEmployee); 
+    		Optional<Employee> employeeFromRepository = employeeRepository.findById(id);
+    		employeeFromRepository.orElseThrow();
     		
+    		Employee updatedEmployee = employeeRepository.save(employee);
+    		return ResponseEntity.ok(updatedEmployee);    		    		
     	} catch (NoSuchElementException e) {
         	return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }  catch(Exception e) {
