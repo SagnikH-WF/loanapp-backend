@@ -11,4 +11,12 @@ public interface ItemService {
 	List<String> getCategorySpecificItemMakes(String category);
 	
 	List<Item> getItemsForSpecficCategoryAndMake(String category, String make);
+	
+	List<Item> getAllItemsDetails();
+	
+	void deleteItemByItemId(String itemId);
+	
+	Item getItemById(String itemId);
+
+	String updateItemById(String id, Item item);
 }

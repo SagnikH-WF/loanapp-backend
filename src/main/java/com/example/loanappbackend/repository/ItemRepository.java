@@ -3,12 +3,15 @@ package com.example.loanappbackend.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.loanappbackend.model.Item;
 import com.example.loanappbackend.model.ItemIssue;
+
+import jakarta.transaction.Transactional;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, String>{
@@ -20,6 +23,16 @@ public interface ItemRepository extends JpaRepository<Item, String>{
 	public List<Item> getItemsForSpecficCategoryAndMake(String category, String make);
 	
 	@Query("SELECT i from Item i WHERE i.itemCategory=?1 AND i.itemDescription=?2 AND i.itemValuation=?3 AND i.itemMake=?4")
-	public Item findItemDetails(String category, String description, int value, String make);	     
+	public Item findItemDetails(String category, String description, int value, String make);	 
+	
+	@Modifying
+	@Transactional
+	@Query("DELETE FROM Item WHERE itemId = :itemId")
+	void deleteByItemId(@Param("itemId") String itemId);
+	
+	@Query("SELECT i FROM Item i WHERE i.itemId = :itemId")
+	public Item findItemByItemId(@Param("itemId") String itemId);
+
+
 	
 }
