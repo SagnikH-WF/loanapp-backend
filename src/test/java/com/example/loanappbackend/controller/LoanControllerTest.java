@@ -33,7 +33,7 @@ public class LoanControllerTest {
     private ObjectMapper objectMapper; // ObjectMapper for JSON serialization/deserialization
 
     @Test
-    public void testSaveLoan() throws Exception {
+    public void saveLoan() throws Exception {
         // Create a sample loan to save
         Loan loanToSave = new Loan();
         loanToSave.setLoanType("Personal Loan");
@@ -55,7 +55,7 @@ public class LoanControllerTest {
     }
 
     @Test
-    public void testGetLoanList() throws Exception {
+    public void getLoanList() throws Exception {
         // Define a list of sample loans for the expected response
         List<Loan> expectedLoans = Arrays.asList(
             new Loan("1", 10, "Personal Loan"),
@@ -72,7 +72,7 @@ public class LoanControllerTest {
     }
 
     @Test
-    public void testGetLoanById() throws Exception {
+    public void getLoanById() throws Exception {
         // Define a sample loan ID
         String loanId = "1";
 
@@ -89,7 +89,7 @@ public class LoanControllerTest {
     }
 
     @Test
-    public void testDeleteLoan() throws Exception {
+    public void deleteLoan() throws Exception {
         // Define a sample loan ID to delete
         String loanId = "1";
 
@@ -106,7 +106,7 @@ public class LoanControllerTest {
     }
 
     @Test
-    public void testGetDistinctLoanTypes() throws Exception {
+    public void getDistinctLoanTypes() throws Exception {
         // Define a list of sample distinct loan types for the expected response
         List<String> expectedLoanTypes = Arrays.asList("Personal Loan", "Home Loan");
 
