@@ -29,7 +29,7 @@ public class Loan {
 	private String loanType;
 
 	@OnDelete(action=OnDeleteAction.CASCADE)
-	@OneToMany(mappedBy="loan", cascade=CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy="loan", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference(value="loan2")
 	private Set<EmployeeLoanCard> employeeLoanCard;
 	

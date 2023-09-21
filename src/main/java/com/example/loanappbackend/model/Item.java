@@ -39,7 +39,7 @@ public class Item {
 	private int itemValuation;
 	
 	@OnDelete(action=OnDeleteAction.CASCADE)
-	@OneToMany(mappedBy="item", cascade=CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy="item", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference(value="item2")
 	private Set<EmployeeItemIssueDetails> employeeIssueDetails;
 	

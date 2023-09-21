@@ -1,7 +1,7 @@
 package com.example.loanappbackend.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -63,21 +63,19 @@ public class EmployeeServiceTest {
 		assertThat(fetchedEmployee).isNotNull();
 	}
 
-//	@Test
-//	void deleteEmployeeById() {
-//		
-//		
-//		//Mockito‘s doNothing() is used when you want to test void methods because 
-//		//void methods do not return anything so there is no way you can verify using assert.
-//		doNothing().when(employeeRepository).deleteById("E1");
-//		
-//		employeeService.deleteEmployeeById("E1");
-//		
-//		/*Mockito verify() method can be used to test number of method invocations too. 
-//		 * We can test exact number of times, at least once, at least, at most number of
-//		 *  invocation times for a mocked method.*/
-//		
-//		verify(employeeRepository,times(1)).deleteById("E1");
-//	}
+	@Test
+    public void deleteEmployeeById() {
+        // Define some sample data
+        String employeeId = "123";
+
+        // Mock the repository behavior to simulate a successful delete
+        when(employeeRepository.findById(employeeId)).thenReturn(Optional.of(new Employee()));
+
+        // Call the service method
+        String result = employeeService.deleteEmployeeById(employeeId);
+
+        // Assert that the result indicates success
+        assertEquals("Employee deleted successfully", result);
+    }
 	
 }

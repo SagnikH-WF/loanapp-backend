@@ -31,7 +31,7 @@ public class EmployeeControllerTest {
     
     
     @Test
-    public void testSaveEmployee() throws Exception {
+    public void saveEmployee() throws Exception {
         // Create a sample employee to save
         Employee employeeToSave = new Employee();
         employeeToSave.setName("John");
@@ -53,7 +53,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void testGetEmployeeById() throws Exception {
+    public void getEmployeeById() throws Exception {
         // Create a sample employee for testing
         Employee employee = new Employee();
         employee.setEmployeeId("1");
@@ -79,7 +79,7 @@ public class EmployeeControllerTest {
     
 
     @Test
-    public void testDeleteEmployee() throws Exception {
+    public void deleteEmployee() throws Exception {
         // Mock the behavior of employeeService.deleteEmployeeById
         when(employeeService.deleteEmployeeById("1")).thenReturn("Employee with ID 1 deleted successfully");
 
