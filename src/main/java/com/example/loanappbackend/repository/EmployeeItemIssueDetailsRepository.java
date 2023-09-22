@@ -1,5 +1,6 @@
 package com.example.loanappbackend.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,5 +15,5 @@ public interface EmployeeItemIssueDetailsRepository extends JpaRepository<Employ
 	
 	@Query("SELECT new com.example.loanappbackend.model.ItemIssue(eid.issueId, i.itemDescription, i.itemStatus, i.itemMake, i.itemCategory, i.itemValuation )" + 
 			"FROM EmployeeItemIssueDetails eid INNER JOIN eid.item i WHERE eid.employee.employeeId = ?1")
-	public List<ItemIssue> findItemsIssuedToEmployee(String employeeId);
+	public List<ItemIssue> findItemsIssuedToEmployee(String employeeId, LocalDate todayDate);
 }

@@ -1,5 +1,6 @@
 package com.example.loanappbackend.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,8 @@ public class EmployeeItemIssueDetailsServiceImpl implements EmployeeItemIssueDet
 	
 	@Override
 	public List<ItemIssue> findItemsIssuedToEmployee(String employeeId) {
-		return employeeItemIssueDetailsRepository.findItemsIssuedToEmployee(employeeId);
+		LocalDate todayDate = LocalDate.now();
+		return employeeItemIssueDetailsRepository.findItemsIssuedToEmployee(employeeId, todayDate);
 	}
 	
 }
