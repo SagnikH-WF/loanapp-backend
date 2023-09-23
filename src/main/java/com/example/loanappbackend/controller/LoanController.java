@@ -1,7 +1,9 @@
 package com.example.loanappbackend.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.loanappbackend.dto.LoanDto;
 import com.example.loanappbackend.model.Loan;
 import com.example.loanappbackend.service.LoanService;
 
@@ -24,27 +27,41 @@ import jakarta.validation.Valid;
 @CrossOrigin(origins="http://localhost:3000")
 public class LoanController {
 	
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	@Autowired
 	private LoanService loanService;
 	
 	@PostMapping("/loan")
-	public Loan saveLoan(@Valid @RequestBody Loan loan) {
-		return loanService.saveLoan(loan);
+	public LoanDto saveLoan(@Valid @RequestBody LoanDto loanDto) {
+		Loan loan=modelMapper.map(loanDto,Loan.class);
+		return modelMapper.map(loanService.saveLoan(loan),LoanDto.class);
 	}
 	
 	@GetMapping("/loan")
-	public List<Loan> getLoanList() {		
-		return loanService.getAllLoans();
+	public List<LoanDto> getLoanList() {	
+		List<LoanDto> allLoansList=new ArrayList<>();
+		List<Loan> allLoans=loanService.getAllLoans();
+		for(Loan l:allLoans) {
+			allLoansList.add(modelMapper.map(l, LoanDto.class));
+		}
+		return allLoansList;
 	}
 	
 	@GetMapping("/loan/{id}")
-	public Loan getLoanById(@Valid @PathVariable("id") String id) {
-		return loanService.getLoanById(id);
+	public LoanDto getLoanById(@Valid @PathVariable("id") String id) {
+		return modelMapper.map(loanService.getLoanById(id),LoanDto.class);
 	}
 	
 	@PutMapping("/loan/{id}")
-	public ResponseEntity<Loan> updateLoan(@Valid @PathVariable("id") String id,@Valid @RequestBody Loan loan) {
-		return loanService.updateLoanById(id, loan);
+	public ResponseEntity<LoanDto> updateLoan(@Valid @PathVariable("id") String id,@Valid @RequestBody LoanDto loanDto) {
+		
+		Loan loanNeedsToUpdate=modelMapper.map(loanDto, Loan.class);
+		Loan updatedLoan=loanService.updateLoanById(id, loanNeedsToUpdate).getBody();
+		
+		return ResponseEntity.ok(modelMapper.map(updatedLoan, LoanDto.class));
 	}
 	
 	@DeleteMapping("/loan/{id}")

@@ -1,7 +1,9 @@
 package com.example.loanappbackend.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.loanappbackend.dto.EmployeeLoanCardDto;
+import com.example.loanappbackend.dto.UserLoanDto;
 import com.example.loanappbackend.model.EmployeeLoanCard;
 import com.example.loanappbackend.model.UserLoan;
 import com.example.loanappbackend.service.EmployeeLoanCardService;
@@ -23,15 +27,27 @@ import jakarta.validation.Valid;
 public class EmployeeLoanCardController {
 	
 	@Autowired
+	private ModelMapper modelMapper;
+	
+	@Autowired
 	private EmployeeLoanCardService employeeLoanCardService;
 	
 	@PostMapping("/loanCard")
-	public EmployeeLoanCard saveEmployeeLoanCard(@Valid @RequestBody EmployeeLoanCard employeeLoanCard) {
-		return employeeLoanCardService.saveEmployeeLoanCard(employeeLoanCard);
+	public EmployeeLoanCardDto saveEmployeeLoanCard(@Valid @RequestBody EmployeeLoanCardDto employeeLoanCardDto) {
+		
+		EmployeeLoanCard employeeLoanCard=modelMapper.map(employeeLoanCardDto, EmployeeLoanCard.class);
+		return modelMapper.map(employeeLoanCardService.saveEmployeeLoanCard(employeeLoanCard), EmployeeLoanCardDto.class);
 	}
 	
 	@GetMapping("/loanCard")
-	public List<UserLoan> findLoansByEmployeeId(@Valid @RequestParam String employeeId) {
-		return employeeLoanCardService.findLoansByEmployeeId(employeeId);
+	public List<UserLoanDto> findLoansByEmployeeId(@Valid @RequestParam String employeeId) {
+		
+		
+		List<UserLoanDto> responseListByEmployeeId=new ArrayList<>();
+		List<UserLoan> listByEmployeeList=employeeLoanCardService.findLoansByEmployeeId(employeeId);
+		for(UserLoan userLoan:listByEmployeeList) {
+			responseListByEmployeeId.add(modelMapper.map(userLoan, UserLoanDto.class));
+		}
+		return responseListByEmployeeId;
 	}
 }
