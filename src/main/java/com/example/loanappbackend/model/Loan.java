@@ -12,6 +12,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
@@ -23,9 +25,11 @@ public class Loan {
 	private String loanId;
 	
 	@Column(name="duration", nullable=false)
+	@NotNull(message="Duration field cannot be empty")
 	private int durationInYears;
 	
 	@Column(unique=true, length=15, nullable=false)
+	@NotEmpty(message="LoanType field cannot be empty")
 	private String loanType;
 
 	@OnDelete(action=OnDeleteAction.CASCADE)

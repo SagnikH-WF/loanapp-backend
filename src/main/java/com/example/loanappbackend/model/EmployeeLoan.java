@@ -1,14 +1,23 @@
 package com.example.loanappbackend.model;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 public class EmployeeLoan {
+	
+	@NotEmpty(message="Employee Id cannot be empty. Please enter some Id.")
 	private String employeeId;
 	
+	@NotEmpty(message="Item Category cannot be empty. Please enter some Catgory.")
 	private String itemCategory;
 	
+	@NotEmpty(message="Item Description cannot be empty. Please enter some Description.")
 	private String itemDescription;
 	
+	@NotNull(message="Item Valuation cannot be null. Please enter some value.")
 	private int itemValuation;
 	
+	@NotEmpty(message="Item Make cannot be empty. Please enter some make.")
 	private String itemMake;
 
 	public EmployeeLoan() {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.loanappbackend.model.Loan;
 import com.example.loanappbackend.service.LoanService;
 
+import jakarta.validation.Valid;
+
 @RestController
+@Validated
 @CrossOrigin(origins="http://localhost:3000")
 public class LoanController {
 	
@@ -24,7 +28,7 @@ public class LoanController {
 	private LoanService loanService;
 	
 	@PostMapping("/loan")
-	public Loan saveLoan(@RequestBody Loan loan) {
+	public Loan saveLoan(@Valid @RequestBody Loan loan) {
 		return loanService.saveLoan(loan);
 	}
 	
@@ -34,17 +38,17 @@ public class LoanController {
 	}
 	
 	@GetMapping("/loan/{id}")
-	public Loan getLoanById(@PathVariable("id") String id) {
+	public Loan getLoanById(@Valid @PathVariable("id") String id) {
 		return loanService.getLoanById(id);
 	}
 	
 	@PutMapping("/loan/{id}")
-	public ResponseEntity<Loan> updateLoan(@PathVariable("id") String id, @RequestBody Loan loan) {
+	public ResponseEntity<Loan> updateLoan(@Valid @PathVariable("id") String id,@Valid @RequestBody Loan loan) {
 		return loanService.updateLoanById(id, loan);
 	}
 	
 	@DeleteMapping("/loan/{id}")
-	public ResponseEntity<?> deleteLoan(@PathVariable("id") String id) {
+	public ResponseEntity<?> deleteLoan(@Valid @PathVariable("id") String id) {
 		return loanService.deleteLoanById(id);
 	}
 	

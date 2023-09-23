@@ -14,6 +14,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="item")
@@ -21,21 +23,26 @@ public class Item {
 	
 	@Id
 	@Column(length = 6)
+	@NotEmpty(message="Item id cannot be null. Please enter some Id.")
 	private String itemId;
 	
 	@Column(length = 25, nullable=false)
+	@NotEmpty(message="Item Description cannot be null. Please enter some Description.")
 	private String itemDescription;
 	
 	@Column(nullable = false)
 	private char itemStatus;
 	
 	@Column(length = 25, nullable=false)
+	@NotEmpty(message="Item make cannot be null. Please enter some make value.")
 	private String itemMake;
 	
 	@Column(length = 20, nullable=false)
+	@NotEmpty(message="Item category cannot be null. Please enter some category.")
 	private String itemCategory;
 	
 	@Column(length = 10, nullable = false)
+	@NotNull(message="Item valuation cannot be null. Please enter some value.")
 	private int itemValuation;
 	
 	@OnDelete(action=OnDeleteAction.CASCADE)

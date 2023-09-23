@@ -18,6 +18,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @DynamicInsert
 @Entity
@@ -26,18 +28,23 @@ public class Employee {
 	
 	@Id
 	@Column(length=6)
+	@NotEmpty(message="Employee Id cannot be null. Please enter some Id.")
 	private String employeeId;	
 
 	@Column(nullable=false, length=20)
+	@NotEmpty(message="Employee name cannot be null. Please enter some name.")
 	private String name;
 	
 	@Column(nullable=false)
+	@NotEmpty(message="Password cannot be null. Please enter some Password.")
 	private String password;
 	
 	@Column(nullable=false, length=25)
+	@NotEmpty(message="Employee designation cannot be null. Please enter some designation.")
 	private String designation;
 	
 	@Column(nullable=false, length=25)
+	@NotEmpty(message="Employee department cannot be null. Please enter some department.")
 	private String department;
 	
 	@Column(nullable=false, length=1)
