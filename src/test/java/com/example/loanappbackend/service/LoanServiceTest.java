@@ -2,6 +2,7 @@ package com.example.loanappbackend.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -18,6 +19,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import com.example.loanappbackend.model.Loan;
 import com.example.loanappbackend.repository.LoanRepository;
@@ -76,20 +79,44 @@ public class LoanServiceTest {
 		
 	}
 	
-	 @Test
-	    public void deleteLoanById() {
-	        // Define some sample data
-	        String loanId = "123";
 
-	        // Mock the repository behavior to simulate a successful delete
-	        when(loanRepository.findById(loanId)).thenReturn(Optional.of(new Loan()));
+    @Test
+    public void updateLoanById() {
+        // Mock data
+        String loanId = "L1";
+        Loan loan = new Loan(loanId,  10,  "Furniture");
 
-	        // Call the service method
-	        String result = loanService.deleteLoanById(loanId);
+        // Mock the behavior of loanRepository.findById(id)
+        when(loanRepository.findById(loanId)).thenReturn(java.util.Optional.of(loan));
+        // Mock the behavior of loanRepository.save(loan)
+        when(loanRepository.save(loan)).thenReturn(loan);
 
-	        // Assert that the result indicates success
-	        assertEquals("Loan deleted successfully", result);
-	    }
+        // Call the service layer method
+        ResponseEntity<Loan> response = loanService.updateLoanById(loanId, loan);
+
+        // Assertions
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(loan, response.getBody());
+    }
+    
+    @Test
+    public void testDeleteLoanById_Success() {
+        // Mock data
+        String loanId = "L1";
+
+        // Mock the behavior of loanRepository.findById(id)
+        when(loanRepository.findById(loanId)).thenReturn(java.util.Optional.of(new Loan(loanId,  10,  "Furniture")));
+
+        // Call the service layer method
+        ResponseEntity<?> response = loanService.deleteLoanById(loanId);
+
+        // Assertions
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Loan deleted successfully", response.getBody());
+        // Verify that loanRepository.deleteById(id) was called
+        verify(loanRepository, times(1)).deleteById(loanId);
+    }
 	
 	@Test
 	void getDistinctLoanType() {

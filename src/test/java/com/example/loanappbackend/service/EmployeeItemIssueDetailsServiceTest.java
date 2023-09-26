@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class EmployeeItemIssueDetailsServiceTest {
         expectedItems.add(new ItemIssue(2,"chair",'Y',"wooden","furniture",30));
 
         // Mock the repository's behavior
-        when(employeeItemIssueDetailsRepository.findItemsIssuedToEmployee(employeeId)).thenReturn(expectedItems);
+        when(employeeItemIssueDetailsRepository.findItemsIssuedToEmployee(employeeId,LocalDate.now())).thenReturn(expectedItems);
 
         // Call the service method
         List<ItemIssue> actualItems = employeeItemIssueDetailsService.findItemsIssuedToEmployee(employeeId);
