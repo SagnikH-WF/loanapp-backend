@@ -85,7 +85,7 @@ public class EmployeeLoanCardControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isArray());
 
-        // You can add more assertions to check the content of the JSON response if needed
+        
     }
 
 }
