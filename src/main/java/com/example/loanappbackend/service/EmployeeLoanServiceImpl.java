@@ -40,6 +40,7 @@ public class EmployeeLoanServiceImpl implements EmployeeLoanService {
 	public String applyForLoan(EmployeeLoan employeeLoan) {
 		
 		String result = "";
+		boolean isEmployeeLoanCardSaved=false;
 		LocalDate currentDate = LocalDate.now();						
 		
 		Employee employee = employeeRepository.findById(employeeLoan.getEmployeeId()).get();
@@ -50,15 +51,14 @@ public class EmployeeLoanServiceImpl implements EmployeeLoanService {
 		
 		EmployeeLoanCard savedEmployeeLoanCard = employeeLoanCardRepository.save(employeeLoanCard);
 		if(savedEmployeeLoanCard != null) {
-			result="Card table updated";
+			isEmployeeLoanCardSaved=true;
 		}
-		else {
-			result="Error in updating card table";
-		}
+		
 		
 		//employee item issue card 		
 		int loanDuration=loan.getDurationInYears();
 				
+		boolean isEmployeeItemIssueSaved=false;
 		Item item = itemRepository.findItemDetails(employeeLoan.getItemCategory(), employeeLoan.getItemDescription(), employeeLoan.getItemValuation(), employeeLoan.getItemMake());
 		
 		LocalDate parsedLocalDate=LocalDate.parse(currentDate.toString());
@@ -70,12 +70,15 @@ public class EmployeeLoanServiceImpl implements EmployeeLoanService {
 		
 		
 		if(savedEmployeeItemIssueDetails != null) {
-			result += " Issue Table updated";
+			isEmployeeItemIssueSaved=true;
+		}
+			
+		if(isEmployeeLoanCardSaved && isEmployeeItemIssueSaved ) {
+			result="Loan applied successfully";
 		}
 		else {
-			result += " Error in updating Issue table";
-		}		
-	
+			result="Error in applying loan";
+		}
 		return result;
 	}
 }
