@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.loanappbackend.dto.ItemDto;
+import com.example.loanappbackend.dto.LoanDto;
+import com.example.loanappbackend.exceptionHandler.DuplicateDataFoundException;
 import com.example.loanappbackend.model.Item;
 import com.example.loanappbackend.service.ItemService;
 
@@ -38,9 +40,13 @@ public class ItemController {
 	private ItemService itemService;
 	
 	@PostMapping("/item")
-	public ItemDto saveItem(@Valid @RequestBody ItemDto itemDto) {
+	public ItemDto saveItem(@Valid @RequestBody ItemDto itemDto) throws DuplicateDataFoundException {
 		
 		Item itemToSave=modelMapper.map(itemDto, Item.class);
+		ItemDto isLoanExisted=getItemById(itemToSave.getItemId());
+		if(isLoanExisted.getItemId()!=null) {
+			throw new DuplicateDataFoundException("This Item Id already exists");
+		}
 		return modelMapper.map(itemService.saveItem(itemToSave),ItemDto.class);
 		
 	}

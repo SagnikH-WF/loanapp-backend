@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.loanappbackend.dto.EmployeeDto;
 import com.example.loanappbackend.dto.UserLoginDto;
+import com.example.loanappbackend.exceptionHandler.DuplicateDataFoundException;
 import com.example.loanappbackend.model.Employee;
 import com.example.loanappbackend.model.UserLogin;
 import com.example.loanappbackend.service.EmployeeService;
@@ -30,10 +31,14 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping("/employee")
-    public EmployeeDto saveEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
-    	System.out.println("EmployeeDtoId: "+employeeDto.getEmployeeId());
+    public EmployeeDto saveEmployee(@Valid @RequestBody EmployeeDto employeeDto) throws DuplicateDataFoundException {
+    	
     	Employee employee=modelMapper.map(employeeDto, Employee.class);
-    	System.out.println("EmployeeId: "+employee);
+    	
+    	EmployeeDto isExistedEmployee=getEmployeeById(employee.getEmployeeId());
+    	if(isExistedEmployee.getEmployeeId()!=null) {
+    		throw new DuplicateDataFoundException("This Employee Id already exists");
+    	}
     	Employee savedEmployee=employeeService.saveEmployee(employee);
         return modelMapper.map(savedEmployee, EmployeeDto.class);
     }

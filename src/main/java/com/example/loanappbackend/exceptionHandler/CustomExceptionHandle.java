@@ -1,5 +1,6 @@
 package com.example.loanappbackend.exceptionHandler;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,4 +42,18 @@ public class CustomExceptionHandle {
 			ErrorResponse errorResponse = new ErrorResponse(ex.getMessage());
 	        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
 		}
+		
+		@ExceptionHandler(value = DuplicateDataFoundException.class)
+		@ResponseStatus(HttpStatus.FOUND)
+		public ResponseEntity<ErrorResponse> handleDuplicateDataFoundException(DuplicateDataFoundException ex) {
+			ErrorResponse errorResponse = new ErrorResponse(ex.getMessage());
+	        return new ResponseEntity<>(errorResponse, HttpStatus.FOUND);
+		}
+		
+		@ExceptionHandler(value = SQLIntegrityConstraintViolationException.class)
+		@ResponseStatus(HttpStatus.FOUND)
+		public ResponseEntity<ErrorResponse> handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException ex) {
+			ErrorResponse errorResponse = new ErrorResponse(" already existed.");
+	        return new ResponseEntity<>(errorResponse, HttpStatus.FOUND);
+		} 
 }

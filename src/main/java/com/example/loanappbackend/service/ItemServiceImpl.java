@@ -46,7 +46,9 @@ public class ItemServiceImpl implements ItemService{
 		if (item.isPresent()) {
             return item.get();
         }
-        return null;
+		Item recievedItem=new Item();
+		recievedItem.setItemId(null);
+        return recievedItem;
 	}
 	
 	@Override

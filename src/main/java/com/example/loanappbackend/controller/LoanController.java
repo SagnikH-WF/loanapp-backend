@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.loanappbackend.dto.LoanDto;
+import com.example.loanappbackend.exceptionHandler.DuplicateDataFoundException;
 import com.example.loanappbackend.model.Loan;
 import com.example.loanappbackend.service.LoanService;
 
@@ -35,8 +36,15 @@ public class LoanController {
 	private LoanService loanService;
 	
 	@PostMapping("/loan")
-	public LoanDto saveLoan(@Valid @RequestBody LoanDto loanDto) {
+	public LoanDto saveLoan(@Valid @RequestBody LoanDto loanDto) throws DuplicateDataFoundException {
 		Loan loan=modelMapper.map(loanDto,Loan.class);
+		System.out.println("Loan id: "+loan.getLoanId());
+		
+		LoanDto isLoanExisted=getLoanById(loan.getLoanId());
+		if(isLoanExisted.getLoanId()!=null) {
+			throw new DuplicateDataFoundException("This Loan Id already exists");
+		}
+
 		return modelMapper.map(loanService.saveLoan(loan),LoanDto.class);
 	}
 	

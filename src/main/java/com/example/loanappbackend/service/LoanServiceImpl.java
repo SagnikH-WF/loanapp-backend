@@ -31,7 +31,9 @@ public class LoanServiceImpl implements LoanService {
 		if(loan.isPresent()) {
 			return loan.get();
 		}
-		return null;
+		Loan recievedLoan=new Loan();
+		recievedLoan.setLoanId(null);
+		return recievedLoan;
 	}
 	
 	@Override

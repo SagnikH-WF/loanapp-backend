@@ -33,14 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public Employee saveEmployee(Employee employee) {
-    	//TODO: stop updating existing primary key
-    	Optional<Employee> employeeFromRepository = employeeRepository.findById(employee.getEmployeeId());
-    	if(employeeFromRepository.isEmpty()) {
-    		System.out.println("saving employee");
-	    	return employeeRepository.save(employee);
-    	} else {
-    		return employeeFromRepository.get();
-    	}
+    	return employeeRepository.save(employee);
     }    
     
     @Override
@@ -54,7 +47,9 @@ public class EmployeeServiceImpl implements EmployeeService{
         if (employee.isPresent()) {
             return employee.get();
         }
-        return null;
+        Employee recievedEmployee=new Employee();
+        recievedEmployee.setEmployeeId(null);
+        return recievedEmployee;
     }
 
     @Override
